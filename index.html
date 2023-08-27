@@ -72,6 +72,9 @@
 
             if(response.status==404){
                 document.querySelector(".city").innerHTML="Invalid City"; 
+                document.querySelector(".deg").innerHTML="--"+" °C";
+                document.querySelector(".humidity").innerHTML="Humidity"+'<br>'+"--"+'%';
+                document.querySelector(".wind").innerHTML="Wind"+'<br>'+"--"+"km/h";
             }
             else{
             var data=await response.json();

@@ -133,8 +133,12 @@
 
 /*******************************media query**************************************************/
 @media only screen and (max-width:500px){
+    #index-container{
+        background-color: #fff;
+        align-items: flex-start;
+    }
     #index-content{
-        height:100vh;
+        height:90vh;
         width:100%;
         border-radius: 0px;
     }
