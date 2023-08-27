@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div id="index-container">
+        <div id="index-content">
+            <h2 style="margin-bottom:5px;">Weather</h2>
+            <img src="clouds.png" width="130">
+            <h4>Welcome<br>
+                Here you can find current weather of any city</h4>
+            <button id="main-btn" onclick="change()">Get started</button>
+        </div>
+        
+    </div>
+        
+
+    <div id="container">
+        <div id="main-content">
+            <h3>Weather</h3>
+            <div class="search">
+                <input type="text" id="input" placeholder="search city" autocomplete=false>
+                <img src="search.png" id="searchimg">
+            </div>
+            <img src="clouds.png" id="mainimg">
+            <h1 class="deg">--&deg;C</h1>
+            <h2 class="city">City </h2>
+            <div id="extra">
+                <div class="content">
+                <img src="https://cdn-icons-png.flaticon.com/512/4148/4148460.png">
+                <h4 class="humidity">
+                    Humidity <br>
+                    --%
+                </h4>
+                </div>
+                <div class="content">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2045/2045893.png">
+                    <h4 class="wind">
+                        Wind <br>
+                        --km/h
+                    </h4>
+                    </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <script>
+        function change(){
+            document.getElementById('index-container').style.display="none";
+        }
+
+        const apikey="c57499227af25f04b8e10f3add7ae611";
+        const apiurl="https://api.openweathermap.org/data/2.5/weather?&units=metric&q=";
+        const input=document.getElementById('input');
+        const searchbtn=document.getElementById('searchimg');
+
+        async function checkweather(city){
+            const response=await fetch(apiurl+ city+ `&appid=${apikey}`);
+
+            if(response.status==404){
+                document.querySelector(".city").innerHTML="Invalid City"; 
+            }
+            else{
+            var data=await response.json();
+
+            console.log(data);
+
+            document.querySelector(".city").innerHTML=data.name;
+            document.querySelector(".deg").innerHTML=Math.round(data.main.temp)+" °C";
+            document.querySelector(".humidity").innerHTML="Humidity"+'<br>'+data.main.humidity+'%';
+            document.querySelector(".wind").innerHTML="Wind"+'<br>'+data.wind.speed+"km/h";
+
+
+            if(data.weather[0].main=='Clouds'){
+                document.getElementById('mainimg').src="clouds.png";
+            }
+            else if(data.weather[0].main=='Clear'){
+                document.getElementById('mainimg').src="clear.png";
+            }
+            else if(data.weather[0].main=='Rain'){
+                document.getElementById('mainimg').src="rain.png";
+            }
+            else if(data.weather[0].main=='Drizzle'){
+                document.getElementById('mainimg').src="drizzle.png";
+            }
+            else if(data.weather[0].main=='Mist'){
+                document.getElementById('mainimg').src="mist.png";
+            }
+        }
+    }
+        searchbtn.addEventListener('click',()=>{
+            checkweather(input.value.trim());
+        })
+    
+
+    </script>
+</body>
+</html>
