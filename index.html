@@ -23,28 +23,29 @@
 
     <div id="container">
         <div id="main-content">
-            <h3>Weather</h3>
+            <h3 class="heading" onclick="interface()">Weather</h3>
             <div class="search">
                 <input type="text" id="input" placeholder="search city" autocomplete=false>
                 <img src="search.png" id="searchimg">
             </div>
             <img src="clouds.png" id="mainimg">
+            <div>
             <h1 class="deg">--&deg;C</h1>
-            <h2 class="city">City </h2>
+            <h2 class="city">City </h2></div>
             <div id="extra">
                 <div class="content">
                 <img src="https://cdn-icons-png.flaticon.com/512/4148/4148460.png">
-                <h4 class="humidity">
-                    Humidity <br>
-                    --%
-                </h4>
+                <div class="humidity">
+                    <h4>Humidity</h4>
+                    <h4>--%</h4>
+                </div>
                 </div>
                 <div class="content">
                     <img src="https://cdn-icons-png.flaticon.com/512/2045/2045893.png">
-                    <h4 class="wind">
-                        Wind <br>
-                        --km/h
-                    </h4>
+                    <div class="wind">
+                        <h4>Wind speed</h4>
+                        <h4>--km/p</h4>
+                    </div>
                     </div>
             </div>
         </div>
@@ -60,8 +61,12 @@
     <script>
         function change(){
             document.getElementById('index-container').style.display="none";
+            document.getElementById('container').style.display="block";
         }
-
+        function interface(){
+            document.getElementById('index-container').style.display="block";
+            document.getElementById('container').style.display="none";
+        }
         const apikey="c57499227af25f04b8e10f3add7ae611";
         const apiurl="https://api.openweathermap.org/data/2.5/weather?&units=metric&q=";
         const input=document.getElementById('input');
@@ -83,8 +88,8 @@
 
             document.querySelector(".city").innerHTML=data.name;
             document.querySelector(".deg").innerHTML=Math.round(data.main.temp)+" °C";
-            document.querySelector(".humidity").innerHTML="Humidity"+'<br>'+data.main.humidity+'%';
-            document.querySelector(".wind").innerHTML="Wind"+'<br>'+data.wind.speed+"km/h";
+            document.querySelector(".humidity").innerHTML="<h4>Humidity</h4>"+'<h4>'+data.main.humidity+'%'+"</h4>";
+            document.querySelector(".wind").innerHTML="<h4>Wind</h4>"+'<h4>'+data.wind.speed+"km/h"+"</h4>";
 
 
             if(data.weather[0].main=='Clouds'){
